@@ -1,0 +1,41 @@
+{% extends 'HomeBakery/base.html' %}
+{% load static %}
+{% block main %}
+<section class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="{% static 'HomeBakery/assets/img/img-cliente.jpg' %}" class="d-block mx-lg-auto img-fluid" alt="Imágen de Panes" width="700" height="500" loading="lazy">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-1 fw-bold lh-1 mb-3 mainTitle">Clientes</h1>
+        <h2 class="display-4 fw-bold lh-1 mb-3 subtitle">Crea tu perfil de cliente aqui</h2>
+        <form>
+            <div class="form-group">
+                <span class="col-md-1 col-md-offset-2 text-center text-warning"><i class="fa fa-user bigicon"></i></span>
+                <div class="col-md-8">
+                    <input id="fname" name="name" type="text" placeholder="Nombre" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-md-1 col-md-offset-2 text-center text-warning"><i class="fa fa-user bigicon"></i></span>
+                <div class="col-md-8">
+                    <input id="lname" name="name" type="text" placeholder="Apellido" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-md-1 col-md-offset-2 text-center text-warning"><i class="fa fa-envelope bigicon"></i></span>
+                <div class="col-md-8">
+                    <input id="email" name="email" type="text" placeholder="Dirección Email" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-md-1 col-md-offset-2 text-center text-warning"><i class="fa fa-phone-square bigicon"></i></span>
+                <div class="col-md-8">
+                    <input id="phone" name="phone" type="text" placeholder="Teléfono" class="form-control">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-warning mt-5">Guardar</button>
+          </form>
+      </div>
+    </div>
+  </section>   {% endblock %}

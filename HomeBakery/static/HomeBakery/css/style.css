@@ -1,3 +1,28 @@
-h1{
-    color: rgba(170, 138, 56, 0.812);
+@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre&family=Dosis:wght@600&family=Metrophobic&display=swap');
+:root{
+    --subtitle_font:'Averia Serif Libre', cursive;
+    --maintitle_font:'Dosis', sans-serif;
+    --paragraph_font:'Metrophobic', sans-serif;
+
+    --main_primary: #D5AA5B;
+    --main_secondary: #8E5343;
+
+    --extra_dark: #3B383D ;
+    --extra_light: #F6F5F4;
+    --extra_info: #B3BDB8 ; 
+    --extra_success: #28C284 ;
+    --extra_danger: #DB4464 ;
+    --extra_warning: #EAC638 ;
+}
+body{
+    background-color: var(--extra_dark);
+    font-family: var(--paragraph_font);
+}
+.mainTitle{
+    font-family: var(--maintitle_font);
+    color: var(--main_primary);
+}
+.subtitle{
+    font-family: var(--subtitle_font);
+    color: var(--main_secondary);
 }

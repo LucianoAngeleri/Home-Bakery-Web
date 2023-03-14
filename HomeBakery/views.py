@@ -1,6 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
 
 def index(request):
-    return render(request, "index.html")
+    return render(request, "HomeBakery/index.html")
+def pedido(request):
+    return render(request, "HomeBakery/pedido.html")
+def producto(request):
+    return render(request, "HomeBakery/producto.html")
+def cliente(request):
+    return render(request, "HomeBakery/cliente.html")

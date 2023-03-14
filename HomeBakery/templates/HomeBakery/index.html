@@ -1,0 +1,47 @@
+{% extends 'HomeBakery/base.html' %}
+{% load static %}
+{% block main %}
+<section class="container col-xxl-8 px-4 py-5">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <img src="{% static 'HomeBakery/assets/img/Hamburguesa-1.jpg' %}" class="d-block mx-lg-auto img-fluid" alt="Imágen de Panes" width="700" height="500" loading="lazy">
+    </div>
+    <div class="col-lg-6">
+      <h1 class="display-1 fw-bold lh-1 mb-3 mainTitle">Home Bakery:</h1>
+      <h2 class="display-4 fw-bold lh-1 mb-3 subtitle">La auténtica experiencia de panadería artesanal</h2>
+      <p class="lead text-white">Disfruta del auténtico sabor de la panadería artesanal en Home Bakery. Haz tu pedido y prueba nuestros productos hechos a mano. ¡Te encantarán!</p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <button type="button" class="btn btn-warning btn-lg px-4 me-md-2">Pedir Ahora</button>
+      </div>
+    </div>
+  </div>
+</section>            
+<section class="container px-4 py-5">
+    <h2 class="pb-2 text-white">Descubre por qué somos la mejor panadería artesanal</h2>
+    <hr class="text-warning">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2 py-5 justify-content-between">
+      <div class="col d-flex align-items-start">
+        <i class="fa-solid fa-egg fs-1 p-2 text-warning"></i>
+        <div class="text-white">
+          <h3 class="fw-bold fs-4">Ingredientes frescos y naturales</h3>
+          <p>Nos aseguramos de usar solo ingredientes de alta calidad para crear productos deliciosos y saludables.</p>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <i class="fa-solid fa-house fs-1 p-2 text-warning"></i>
+        <div class="text-white">
+          <h3 class="fw-bold fs-4">Proceso artesanal</h3>
+          <p>En lugar de utilizar procesos industriales, nuestros productos son cuidadosamente elaborados a mano con técnicas tradicionales de panadería artesanal.</p>
+        </div>
+      </div>
+
+      <div class="col d-flex align-items-start">
+        <i class="fa-solid fa-comment fs-1 p-2 text-warning"></i>
+        <div class="text-white">
+          <h3 class="fw-bold fs-4">Atención al cliente</h3>
+          <p>Nos esforzamos por brindar una excelente atención al cliente para asegurarnos de que tu experiencia en nuestra panadería sea excepcional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
