@@ -24,4 +24,4 @@ class Pedido(models.Model):
     productos_en_pedido = models.ManyToManyField(Producto)
 
     def __str__(self):
-        return f'{self.id} - {self.cliente} - Fecha:{fecha_pedido}'
+        return f'{self.id} - {self.cliente} - Fecha:{self.fecha_pedido}'
