@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página web de Home Bakery (Panadería)">
+    <meta name="keywords" content="proyecto, django, python, panadería, home, bakery , home bakery">
+    <meta name="author" content="César Luciano Angeleri">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="{% static 'HomeBakery/css/fontawesomefree/css/all.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'HomeBakery/css/style.css' %}" type="text/css">
+    <title>Home Bakery</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-dark fixed-top">
+            <div class="container-fluid">
+              <a class="navbar-brand text-white" href="{% url 'index' %}"><i class"fa fa-home"></i>Home Bakery</a>
+              <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link text-white active" aria-current="page" href="{% url 'index' %}"><i class="fa-solid fa-house p-1"></i>Inicio</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'producto' %}"><i class="fa-solid fa-bread-slice p-1"></i>Productos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'pedido' %}"><i class="fa-solid fa-cart-shopping p-1"></i>Pedidos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'cliente' %}"><i class="fa-solid fa-user p-1"></i>Clientes</a>
+                  </li>
+                </ul>
+                <form class="d-flex" role="search" action="{% url 'buscar_producto' %}">
+                  <input class="form-control me-2" name="criterio" type="search" placeholder="Buscar productos" aria-label="Search">
+                  <button class="btn btn-outline-warning" type="submit"><i class="fa-solid fa-magnifying-glass p-1"></i></button>
+                </form>
+              </div>
+            </div>
+          </nav>
+    </header>
+    <main>
+        {% block main %}
+        {% endblock %}
+    </main>
+    <footer class="d-flex justify-content-between align-items-center py-3 my-4 border-top text-bg-dark">
+        <aside class="col-md-4 d-flex align-items-center px-3">
+          <a href="/" class="mb-3 me-2 mb-md-0 text-decoration-none lh-1">
+            <img src="{% static 'HomeBakery/assets/img/Logo-HOME-BAKERY_White.png' %}" alt="Logo de Home Bakery" width="48px" height="48px">
+          </a>
+          <span class="mb-3 mb-md-0 text-secondary">© Copyright // Home Bakery // 2023</span>
+        </aside>
+        <div class="vr"></div>
+        <aside class="px-3">
+          <ul class="list-unstyled">
+            <li class="list-item"><a class="text-secondary" href="#">Acerca de Nosotros</a></li>
+            <li class="list-item"><a class="text-secondary" href="#">Contacto</a></li>
+          </ul>
+        </aside>
+        <div class="vr"></div>
+        <aside class="px-3">
+          <ul class="list-unstyled text-secondary">
+            <li class="list-item"></li>
+            <li class="list-item">Dirección: Av. XXXXXXXX XXXX</li>
+            <li class="list-item">Teléfono: +54 XXX XXXXXX</li>
+            <li class="list-item">Correo electrónico: homebakery.tuc@gmail.com</li>
+          </ul>
+        </aside>
+        <div class="vr"></div>
+        <aside class="px-3">
+          <ul class="justify-content-end list-unstyled d-flex">
+            <li class="m-2"><a class="text-secondary" href="#"><i class="fs-2 fa-brands fa-facebook"></i></a></li>
+            <li class="m-2"><a class="text-secondary" href="#"><i class="fs-2 fa-brands fa-instagram"></i></i></a></li>
+            <li class="m-2"><a class="text-secondary" href="#"><i class="fs-2 fa-brands fa-github"></i></i></a></li>
+          </ul>
+        </aside>
+      </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+</body>
+</html>
