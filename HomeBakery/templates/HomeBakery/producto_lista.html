@@ -1,0 +1,23 @@
+{% extends 'HomeBakery/base.html' %}
+{% load static %}
+{% block main %}
+<section class="container col-xxl-8 px-4 py-5 mt-5">
+      <div class="col-lg-6">
+        <h1 class="display-1 fw-bold lh-1 mb-3 mainTitle">Lista de Productos</h1>
+        <h2 class="display-4 fw-bold lh-1 mb-3 subtitle">Productos creados</h2>
+        <ul class="list-group">
+          {% for producto in object_list %}
+          <li class="list-group-item text-bg-dark"> ID {{producto.id}} - {{producto.nombre_producto}} - ${{producto.precio_producto}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+</section> 
+{% endblock %}
+
+<h2 class="display-4 fw-bold lh-1 mb-3 subtitle">Productos creados</h2>
+        <ul class="list-group">
+          {% for producto in object_list %}
+          <li class="list-group-item text-bg-dark"> ID {{producto.id}} - {{producto.nombre_producto}} - ${{producto.precio_producto}}</li>
+          {% endfor %}
+        </ul>

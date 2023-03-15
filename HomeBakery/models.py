@@ -16,7 +16,7 @@ class Producto(models.Model):
     precio_producto = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return f'Producto ID:{self.id} - {self.nombre_producto} - $ {self.precio_producto} - {self.cantidad_producto} un.'
+        return f'Producto ID:{self.id} - {self.nombre_producto} - $ {self.precio_producto}'
 
 class Producto_Pedido(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
@@ -24,7 +24,7 @@ class Producto_Pedido(models.Model):
     cantidad_producto = models.IntegerField()
 
     def __str__(self):
-        return f'{self.producto} x {self.cantidad} en {self.pedido}'
+        return f'{self.producto} x {self.cantidad_producto} en {self.pedido}'
 class Pedido(models.Model):
     fecha_pedido = models.DateField()
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
