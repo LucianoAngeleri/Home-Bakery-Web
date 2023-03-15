@@ -16,6 +16,13 @@ def mostrar_producto(request):
         "form" : ProductoForm(),
       }  
     return render(request, "HomeBakery/producto.html", context)
+def agregar_producto(request):
+    producto_form = ProductoForm(request.POST)
+    producto_form.save()
+    context = {
+        "form" : ProductoForm(),
+      }  
+    return render(request, "HomeBakery/producto.html", context)
 class ProductoList(ListView):
     model = Producto
     template_name ="HomeBakery/producto_lista.html"

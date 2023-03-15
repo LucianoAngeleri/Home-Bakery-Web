@@ -18,6 +18,9 @@ body{
     background-color: var(--extra_dark);
     font-family: var(--paragraph_font);
 }
+form > p > label{
+    color: var(--extra_info);
+}
 .mainTitle{
     font-family: var(--maintitle_font);
     color: var(--main_primary);
