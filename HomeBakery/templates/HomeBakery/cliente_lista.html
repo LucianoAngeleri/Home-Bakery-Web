@@ -1,0 +1,18 @@
+{% extends 'HomeBakery/base.html' %}
+{% load static %}
+{% block main %}
+<section class="container col-xxl-8 px-4 py-5 mt-5">
+      <div class="col-lg-6">
+        <h1 class="display-1 fw-bold lh-1 mb-3 mainTitle">Lista de Clientes</h1>
+        <h2 class="display-4 fw-bold lh-1 mb-3 subtitle">Clientes creados</h2>
+        <ul class="list-group">
+          {% for cliente in object_list %}
+          <li class="list-group-item text-bg-dark"> ID {{cliente.id}} - {{cliente.nombre}} {{cliente.apellido}} - {{cliente.email}}
+            <a class="btn btn-primary" href="{% url 'cliente_detalle' cliente.id %}">Detalle</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+</section> 
+{% endblock %}
