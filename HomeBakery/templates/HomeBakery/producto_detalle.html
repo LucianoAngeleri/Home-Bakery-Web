@@ -1,0 +1,9 @@
+{% extends 'HomeBakery/base.html' %}
+{% load static %}
+{% block main %}
+<section class="container col-xxl-8 px-4 py-5 mt-5">
+    <h1 class="display-1 fw-bold lh-1 mb-3 mainTitle">Detalle del Producto</h1>
+    <h2 class="display-4 fw-bold lh-1 mb-3 subtitle">{{producto.nombre_producto}}</h2>
+    <p class="lean mb-3 rounded rounded-pill text-white">Precio: ${{producto.precio_producto}}</p>
+</section>
+{% endblock %}

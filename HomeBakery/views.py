@@ -41,4 +41,7 @@ class ProductoList(ListView):
     model = Producto
     template_name ="HomeBakery/producto_lista.html"
     context_object_name = "productos"
-    
+class ProductoDetail(DetailView):
+    model = Producto
+    template_name ="HomeBakery/producto_detalle.html"
+    context_object_name = "producto"
