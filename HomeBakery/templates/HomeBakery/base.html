@@ -15,9 +15,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-dark fixed-top">
+        <nav class="navbar navbar-expand-lg bg-dark sticky-top rounded-bottom-4">
             <div class="container-fluid">
-              <a class="navbar-brand text-white" href="{% url 'index' %}"><i class"fa fa-home"></i>Home Bakery</a>
+              <a class="navbar-brand text-white" href="{% url 'index' %}"><img src="{% static 'HomeBakery/assets/img/Logo-HOME-BAKERY_White.png' %}" class="d-inline-block align-text-top" alt="Logo de Home Bakery" width="32px" height="32px">Home Bakery</a>
               <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -48,37 +48,59 @@
         {% block main %}
         {% endblock %}
     </main>
-    <footer class="d-flex justify-content-between align-items-center py-3 my-4 border-top text-bg-dark">
-        <aside class="col-md-4 d-flex align-items-center px-3">
-          <a href="/" class="mb-3 me-2 mb-md-0 text-decoration-none lh-1">
-            <img src="{% static 'HomeBakery/assets/img/Logo-HOME-BAKERY_White.png' %}" alt="Logo de Home Bakery" width="48px" height="48px">
-          </a>
-          <span class="mb-3 mb-md-0 text-secondary">© Copyright // Home Bakery // 2023</span>
-        </aside>
-        <div class="vr"></div>
-        <aside class="px-3">
-          <ul class="list-unstyled">
-            <li class="list-item"><a class="text-secondary" href="#">Acerca de Nosotros</a></li>
-            <li class="list-item"><a class="text-secondary" href="#">Contacto</a></li>
-          </ul>
-        </aside>
-        <div class="vr"></div>
-        <aside class="px-3">
-          <ul class="list-unstyled text-secondary">
-            <li class="list-item"></li>
-            <li class="list-item">Dirección: Av. XXXXXXXX XXXX</li>
-            <li class="list-item">Teléfono: +54 XXX XXXXXX</li>
-            <li class="list-item">Correo electrónico: homebakery.tuc@gmail.com</li>
-          </ul>
-        </aside>
-        <div class="vr"></div>
-        <aside class="px-3">
-          <ul class="justify-content-end list-unstyled d-flex">
-            <li class="m-2"><a class="text-secondary" href="#"><i class="fs-2 fa-brands fa-facebook"></i></a></li>
-            <li class="m-2"><a class="text-secondary" href="#"><i class="fs-2 fa-brands fa-instagram"></i></i></a></li>
-            <li class="m-2"><a class="text-secondary" href="#"><i class="fs-2 fa-brands fa-github"></i></i></a></li>
-          </ul>
-        </aside>
+    <footer class="py-5 mt-4 text-bg-dark rounded-top-5">
+      <div class="container-fluid">
+        <div class="row g-2">
+          <aside class="col-12 col-lg d-flex flex-column align-items-center text-secondary p-3">
+            <hr class="d-md-none">
+            <a href="/" class="text-decoration-none">
+              <img src="{% static 'HomeBakery/assets/img/Logo-HOME-BAKERY_White.png' %}" alt="Logo de Home Bakery" width="48px" height="48px">
+            </a>
+            <h6 class="fs-5 text-warning">Home Bakery</h6>
+            <span class="">© Copyright // Home Bakery // 2023</span>
+          </aside>
+          <div class="vr d-none d-lg-block p-0"></div>
+          <aside class="col-12 col-md text-secondary p-3">
+            <hr class="d-md-none">
+            <h5 class="display-6">Links</h5>
+            <ul class="list-unstyled">
+              <li class="list-item"><a class="text-secondary" href="#">Acerca de Nosotros</a></li>
+              <li class="list-item"><a class="text-secondary" href="#">Contacto</a></li>
+            </ul>
+          </aside>
+          <div class="vr d-none d-md-block p-0"></div>
+          <aside class="col-12 col-md text-secondary p-3">
+            <hr class="d-md-none">
+            <ul class="list-unstyled">
+              <li class="list-item"><h6 class="display-6">Horarios de Atención:</h6>
+                <ul>
+                  <li>Lunes - Viernes de 7 a 13 hs // 16:30 a 21 hs</li>
+                  <li>Domingo de 8 a 14 hs // 17 a 21 hs</li>
+                </ul>
+              </li>
+              <li class="list-item">
+                <h6 class="display-6">Dirección:</h6>
+                <p>Av. XXXXXXXX XXXX</p></li>
+              <li class="list-item">
+                <h6 class="display-6">Teléfono:</h6>
+                <p>+54 XXX XXXXXX</p></li>
+              <li class="list-item">
+                <h6 class="display-6">Correo electrónico:</h6>
+                <p>homebakery.tuc@gmail.com</p></li>
+            </ul>
+          </aside>
+          <div class="vr d-none d-lg-block p-0"></div>
+          <aside class="col-12 col-lg d-flex flex-column justify-content-center text-secondary p-3">
+            <hr class="d-md-none">
+            <h5 class="display-6 text-center">Seguinos en nuestras redes sociales:</h5>
+            <ul class="list-unstyled d-flex justify-content-center">
+              <li class="m-2"><a class="text-secondary" href="#"><i class="fs-2 fa-brands fa-facebook"></i></a></li>
+              <li class="m-2"><a class="text-secondary" href="#"><i class="fs-2 fa-brands fa-instagram"></i></i></a></li>
+              <li class="m-2"><a class="text-secondary" href="#"><i class="fs-2 fa-brands fa-github"></i></i></a></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
       </footer>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
