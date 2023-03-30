@@ -3,8 +3,9 @@ from HomeBakery.models import Producto, Cliente, Pedido
 from .forms import ClienteForm, PedidoForm
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def index(request):
     return render(request, "HomeBakery/index.html")
@@ -67,16 +68,16 @@ class ProductoDetail(DetailView):
     model = Producto
     template_name ="HomeBakery/producto_detalle.html"
     context_object_name = "producto"
-class ProductoUpdate(UpdateView):
+class ProductoUpdate(LoginRequiredMixin,UpdateView):
     model = Producto
     success_url = reverse_lazy("producto_lista")
     template_name ="HomeBakery/producto_actualizar.html"
     fields = '__all__'
-class ProductoDelete(DeleteView):
+class ProductoDelete(LoginRequiredMixin,DeleteView):
     model = Producto
     success_url = reverse_lazy("producto_lista")
     context_object_name = "producto"
-class ProductoCreate(CreateView):
+class ProductoCreate(LoginRequiredMixin,CreateView):
     model = Producto
     success_url = reverse_lazy("producto_lista")
     template_name ="HomeBakery/producto_crear.html"
@@ -112,3 +113,5 @@ class SignUp(CreateView):
     form_class = UserCreationForm
     template_name = 'registration/signup.html'
     success_url = reverse_lazy("index")
+class Logout(LogoutView):
+    template_name = 'registration/logout.html'

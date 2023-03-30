@@ -30,9 +30,6 @@
                     <a class="nav-link" href="{% url 'producto' %}"><i class="fa-solid fa-bread-slice p-1"></i>Productos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'pedido' %}"><i class="fa-solid fa-cart-shopping p-1"></i>Pedidos</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" href="{% url 'cliente' %}"><i class="fa-solid fa-user p-1"></i>Clientes</a>
                   </li>
                 </ul>
@@ -40,6 +37,25 @@
                   <input class="form-control me-2" name="criterio" type="search" placeholder="Buscar productos" aria-label="Search">
                   <button class="btn btn-outline-warning" type="submit"><i class="fa-solid fa-magnifying-glass p-1"></i></button>
                 </form>
+                <div class="text-end d-flex flex-lg-row justify-content-center gap-2 m-3">
+                  {% if user.is_authenticated %}
+                  <div class="dropdown text-end">
+                    <a href="#" class="badge d-flex align-items-center p-1 pe-3 border border-secondary-subtle rounded-pill dropdown-toggle fs-4" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle me-1">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-start  text-small">
+                      <li class="text-center m-3 fw-bold lead">Hola, {{ user.username }}</li>
+                      <li><a class="dropdown-item" href="#"><span class="px-2"><i class="fa-regular fa-address-card"></i></span>Mi Perfil</a></li>
+                      <li><a class="dropdown-item" href="{% url 'pedido' %}"><span class="px-2"><i class="fa-solid fa-cart-shopping"></i></span>Mis Pedidos</a>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item text-danger" href="{% url 'logout' %}"><span class="px-2"><i class="fa-solid fa-xmark"></i></span>Salir</a></li>
+                    </ul>
+                  </div>
+                  {% else %}
+                  <a href="{% url 'login' %}" class="btn btn-outline-warning">Ingresar</a>
+                  <a href="{% url 'signup' %}" class="btn btn-warning">Registrarse</a>
+                  {% endif %}
+                </div>
               </div>
             </div>
           </nav>
