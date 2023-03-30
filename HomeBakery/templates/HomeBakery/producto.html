@@ -19,6 +19,7 @@
 </section>
 <section class="container">
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+    {% for producto in productos %}
     <div class="col">
       <div class="card text-bg-dark border-0 rounded-5">
         <div class="card-img-top position-relative">
@@ -26,92 +27,19 @@
           <img src="{% static 'HomeBakery/assets/img/Hamburguesa-1.jpg' %}" class="img-fluid rounded-top-5" alt="..." />
         </div>
         <div class="badge-precio text-center">
-          <span class="badge rounded-pill text-bg-danger fs-4">$ 500</span>
+          <span class="badge rounded-pill text-bg-danger fs-4">{{producto.precio_producto}}</span>
         </div>
         <div class="card-body">
-          <h5 class="card-title">Pan Integral</h5>
-          <p class="card-text">Hecho con harina integral y un mix de semillas:</p>
-          <ul>
-            <li>Lino</li>
-            <li>Sésamo Integral</li>
-            A
-            <li>Chía</li>
-          </ul>
+          <h5 class="card-title">{{producto.nombre_producto}}</h5>
+          <p class="card-text">{{producto.id}}</p>
           <div class="d-flex justify-content-end">
             <a href="#" class="btn btn-warning shadow">Añadir a Pedidos</a>
           </div>
         </div>
       </div>
     </div>
-    <div class="col">
-      <div class="card text-bg-dark border-0 rounded-5">
-        <div class="card-img-top position-relative">
-          <div class="card-img-top-gradiente"></div>
-          <img src="{% static 'HomeBakery/assets/img/Hamburguesa-1.jpg' %}" class="img-fluid rounded-top-5" alt="..." />
-        </div>
-        <div class="badge-precio text-center">
-          <span class="badge rounded-pill text-bg-danger fs-4">$ 500</span>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Pan Integral</h5>
-          <p class="card-text">Hecho con harina integral y un mix de semillas:</p>
-          <ul>
-            <li>Lino</li>
-            <li>Sésamo Integral</li>
-            <li>Chía</li>
-          </ul>
-          <div class="d-flex justify-content-end">
-            <a href="#" class="btn btn-warning shadow">Añadir a Pedidos</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card text-bg-dark border-0 rounded-5">
-        <div class="card-img-top position-relative">
-          <div class="card-img-top-gradiente"></div>
-          <img src="{% static 'HomeBakery/assets/img/Hamburguesa-1.jpg' %}" class="img-fluid rounded-top-5" alt="..." />
-        </div>
-        <div class="badge-precio text-center">
-          <span class="badge rounded-pill text-bg-danger fs-4">$ 500</span>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Pan Integral</h5>
-          <p class="card-text">Hecho con harina integral y un mix de semillas:</p>
-          <ul>
-            <li>Lino</li>
-            <li>Sésamo Integral</li>
-            <li>Chía</li>
-          </ul>
-          <div class="d-flex justify-content-end">
-            <a href="#" class="btn btn-warning shadow">Añadir a Pedidos</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card text-bg-dark border-0 rounded-5">
-        <div class="card-img-top position-relative">
-          <div class="card-img-top-gradiente"></div>
-          <img src="{% static 'HomeBakery/assets/img/Hamburguesa-1.jpg' %}" class="img-fluid rounded-top-5" alt="..." />
-        </div>
-        <div class="badge-precio text-center">
-          <span class="badge rounded-pill text-bg-danger fs-4">$ 500</span>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Pan Integral</h5>
-          <p class="card-text">Hecho con harina integral y un mix de semillas:</p>
-          <ul>
-            <li>Lino</li>
-            <li>Sésamo Integral</li>
-            <li>Chía</li>
-          </ul>
-          <div class="d-flex justify-content-end">
-            <a href="#" class="btn btn-warning shadow">Añadir a Pedidos</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    {% endfor %}
+
   </div>
 </section>
 {% endblock %}

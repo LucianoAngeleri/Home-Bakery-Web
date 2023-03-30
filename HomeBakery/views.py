@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from HomeBakery.models import Producto, Cliente, Pedido
-from .forms import ProductoForm, ClienteForm, PedidoForm
+from .forms import ClienteForm, PedidoForm
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -29,25 +29,6 @@ def agregar_pedido(request):
     return render(request, "HomeBakery/pedido.html", context)
 def producto(request):
     return render(request, "HomeBakery/producto.html")
-def mostrar_producto(request):
-    context = {
-        "form" : ProductoForm(),
-        "productos": Producto.objects.all(),
-        }  
-    return render(request, "HomeBakery/producto.html", context)
-def agregar_producto(request):
-    if request.method == 'POST':
-        producto_form = ProductoForm(request.POST)
-        if producto_form.is_valid():
-            producto_form.save()
-    else:
-        producto_form = ProductoForm()
-
-    context = {
-        "form" : ProductoForm(),
-        "productos": Producto.objects.all(),
-      }  
-    return render(request, "HomeBakery/producto.html", context)
 def buscar_producto(request):
     criterio = request.GET.get("criterio")
     context = {
@@ -99,6 +80,14 @@ class ProductoCreate(CreateView):
     template_name ="HomeBakery/producto_crear.html"
     context_object_name = "producto"
     fields = '__all__'
+class ProductoSearch(ListView):
+    model = Producto
+    template_name ="HomeBakery/producto_buscar.html"
+    context_object_name = "productos"
+    def get_queryset(self): 
+        criterio = self.request.GET.get("criterio")
+        result = Producto.objects.filter(nombre_producto__icontains=criterio).all()
+        return result
 class ClienteList(ListView):
     model = Cliente
     template_name ="HomeBakery/cliente_lista.html"
