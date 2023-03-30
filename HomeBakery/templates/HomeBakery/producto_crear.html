@@ -1,0 +1,12 @@
+{% extends 'HomeBakery/base.html' %} 
+{% load static %} 
+{% block main %}
+<section class="container col-xxl-8 px-4 py-5 mt-5">
+<h1 class="display-1 fw-bold mb-3 subtitle">Crea un producto nuevo aquí</h1>
+<form method="post">
+  {% csrf_token %}
+  {{form.as_p}}
+  <input class="btn btn-warning" type="submit" value="Añadir Producto" />
+</form>
+</section>
+{% endblock %}

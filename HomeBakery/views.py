@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from HomeBakery.models import Producto, Cliente, Pedido
 from .forms import ProductoForm, ClienteForm, PedidoForm
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 def index(request):
@@ -79,6 +80,25 @@ class ProductoList(ListView):
     model = Producto
     template_name ="HomeBakery/producto_lista.html"
     context_object_name = "productos"
+class ProductoDetail(DetailView):
+    model = Producto
+    template_name ="HomeBakery/producto_detalle.html"
+    context_object_name = "producto"
+class ProductoUpdate(UpdateView):
+    model = Producto
+    success_url = reverse_lazy("producto_lista")
+    template_name ="HomeBakery/producto_actualizar.html"
+    fields = '__all__'
+class ProductoDelete(DeleteView):
+    model = Producto
+    success_url = reverse_lazy("producto_lista")
+    context_object_name = "producto"
+class ProductoCreate(CreateView):
+    model = Producto
+    success_url = reverse_lazy("producto_lista")
+    template_name ="HomeBakery/producto_crear.html"
+    context_object_name = "producto"
+    fields = '__all__'
 class ClienteList(ListView):
     model = Cliente
     template_name ="HomeBakery/cliente_lista.html"
@@ -87,10 +107,6 @@ class PedidoList(ListView):
     model = Pedido
     template_name ="HomeBakery/pedido_lista.html"
     context_object_name = "pedidos"    
-class ProductoDetail(DetailView):
-    model = Producto
-    template_name ="HomeBakery/producto_detalle.html"
-    context_object_name = "producto"
 class ClienteDetail(DetailView):
     model = Cliente
     template_name ="HomeBakery/cliente_detalle.html"

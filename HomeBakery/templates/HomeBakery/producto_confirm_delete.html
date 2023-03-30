@@ -1,0 +1,14 @@
+{% extends 'HomeBakery/base.html' %}
+{% load static %}
+{% block main %}
+<section class="container col-xxl-8 px-4 py-5 mt-5">
+    <h1 class="display-1 fw-bold mb-3 text-danger">Va a eliminar el producto "{{producto.nombre_producto}}"</h1>
+    <h2 class="display-4 fw-bold mb-3 subtitle">Está seguro de que desea eliminarlo?</h2>
+      <form method="post">
+        {% csrf_token %} 
+        {{form.as_p}}
+        <input class="btn  btn-danger" type="submit" value="Borrar Producto" />}
+        <a href="{% url 'producto_lista' %}" class="btn btn-secondary" >Cancelar</a>
+      </form>
+</section>
+{% endblock %}
