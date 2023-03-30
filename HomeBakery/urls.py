@@ -18,4 +18,6 @@ urlpatterns = [
     path('cliente/agregar', views.agregar_cliente, name='agregar_cliente'),
     path('cliente/lista', views.ClienteList.as_view() , name='cliente_lista'),
     path('cliente/<pk>/detalle', views.ClienteDetail.as_view() , name='cliente_detalle'),
+    path('login/', views.Login.as_view() , name='login'),
+    path('signup/', views.SignUp.as_view() , name='signup'),
 ]

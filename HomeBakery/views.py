@@ -3,6 +3,8 @@ from HomeBakery.models import Producto, Cliente, Pedido
 from .forms import ClienteForm, PedidoForm
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.forms import UserCreationForm
 
 def index(request):
     return render(request, "HomeBakery/index.html")
@@ -104,3 +106,9 @@ class PedidoDetail(DetailView):
     model = Pedido
     template_name ="HomeBakery/pedido_detalle.html"
     context_object_name = "pedido"
+class Login(LoginView):
+    next_page = reverse_lazy("index")
+class SignUp(CreateView):
+    form_class = UserCreationForm
+    template_name = 'registration/signup.html'
+    success_url = reverse_lazy("index")
