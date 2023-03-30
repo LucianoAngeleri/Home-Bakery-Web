@@ -46,7 +46,7 @@
                     <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-start  text-small">
                       <li class="text-center m-3 fw-bold lead">Hola, {{ user.username }}</li>
                       <li><a class="dropdown-item" href="#"><span class="px-2"><i class="fa-regular fa-address-card"></i></span>Mi Perfil</a></li>
-                      <li><a class="dropdown-item" href="{% url 'pedido' %}"><span class="px-2"><i class="fa-solid fa-cart-shopping"></i></span>Mis Pedidos</a>
+                      <li><a class="dropdown-item" href="{% url 'pedido_lista' %}"><span class="px-2"><i class="fa-solid fa-cart-shopping"></i></span>Mis Pedidos</a>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item text-danger" href="{% url 'logout' %}"><span class="px-2"><i class="fa-solid fa-xmark"></i></span>Salir</a></li>
                     </ul>

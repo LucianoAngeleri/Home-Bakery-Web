@@ -98,15 +98,30 @@ class ClienteList(ListView):
 class PedidoList(ListView):
     model = Pedido
     template_name ="HomeBakery/pedido_lista.html"
-    context_object_name = "pedidos"    
-class ClienteDetail(DetailView):
-    model = Cliente
-    template_name ="HomeBakery/cliente_detalle.html"
-    context_object_name = "cliente"
+    context_object_name = "pedidos"  
 class PedidoDetail(DetailView):
     model = Pedido
     template_name ="HomeBakery/pedido_detalle.html"
     context_object_name = "pedido"
+class PedidoUpdate(LoginRequiredMixin,UpdateView):
+    model = Pedido
+    success_url = reverse_lazy("pedido_lista")
+    template_name ="HomeBakery/pedido_actualizar.html"
+    fields = '__all__'
+class PedidoDelete(LoginRequiredMixin,DeleteView):
+    model = Pedido
+    success_url = reverse_lazy("pedido_lista")
+    context_object_name = "pedido"
+class PedidoCreate(LoginRequiredMixin,CreateView):
+    model = Pedido
+    success_url = reverse_lazy("pedido_lista")
+    template_name ="HomeBakery/pedido_crear.html"
+    context_object_name = "pedido"
+    fields = '__all__'  
+class ClienteDetail(DetailView):
+    model = Cliente
+    template_name ="HomeBakery/cliente_detalle.html"
+    context_object_name = "cliente"
 class Login(LoginView):
     next_page = reverse_lazy("index")
 class SignUp(CreateView):
