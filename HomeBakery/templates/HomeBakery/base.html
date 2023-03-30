@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="dark">
 {% load static %}
 <head>
     <meta charset="UTF-8">
@@ -17,23 +17,23 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-dark sticky-top rounded-bottom-4">
             <div class="container-fluid">
-              <a class="navbar-brand text-white" href="{% url 'index' %}"><img src="{% static 'HomeBakery/assets/img/Logo-HOME-BAKERY_White.png' %}" class="d-inline-block align-text-top" alt="Logo de Home Bakery" width="32px" height="32px">Home Bakery</a>
-              <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'HomeBakery/assets/img/Logo-HOME-BAKERY_White.png' %}" class="d-inline-block align-text-top" alt="Logo de Home Bakery" width="32px" height="32px">Home Bakery</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link text-white active" aria-current="page" href="{% url 'index' %}"><i class="fa-solid fa-house p-1"></i>Inicio</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}"><i class="fa-solid fa-house p-1"></i>Inicio</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'producto' %}"><i class="fa-solid fa-bread-slice p-1"></i>Productos</a>
+                    <a class="nav-link" href="{% url 'producto' %}"><i class="fa-solid fa-bread-slice p-1"></i>Productos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'pedido' %}"><i class="fa-solid fa-cart-shopping p-1"></i>Pedidos</a>
+                    <a class="nav-link" href="{% url 'pedido' %}"><i class="fa-solid fa-cart-shopping p-1"></i>Pedidos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'cliente' %}"><i class="fa-solid fa-user p-1"></i>Clientes</a>
+                    <a class="nav-link" href="{% url 'cliente' %}"><i class="fa-solid fa-user p-1"></i>Clientes</a>
                   </li>
                 </ul>
                 <form class="d-flex" role="search" action="{% url 'producto_buscar' %}">
