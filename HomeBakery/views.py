@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from HomeBakery.models import Producto, Cliente, Pedido
+from HomeBakery.models import Producto, Cliente, Pedido, ProductoPedido
 from .forms import ClienteForm, PedidoForm
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView

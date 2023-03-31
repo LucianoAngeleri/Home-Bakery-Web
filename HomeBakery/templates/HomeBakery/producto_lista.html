@@ -2,22 +2,22 @@
 {% load static %}
 {% block main %}
 <section class="container px-4 py-5 mt-3">
-  <h1 class="display-1 fw-bold lh-1 mb-3 mainTitle">Lista de Productos</h1>
-  <h2 class="display-4 fw-bold lh-1 mb-3 subtitle">Productos disponibles</h2>
+  <h1 class="display-1 fw-bold mb-3 mainTitle">Lista de Productos</h1>
+  <h2 class="display-4 fw-bold mb-3 subtitle">Productos disponibles</h2>
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
     {% for producto in productos %}
     <div class="col">
       <div class="card text-bg-dark border-0 rounded-5">
         <div class="card-img-top position-relative">
-          <div class="card-img-top-gradiente"></div>
+          <div class="card-img-top-gradiente-vertical"></div>
           <img src="{% static 'HomeBakery/assets/img/Hamburguesa-1.jpg' %}" class="img-fluid rounded-top-5" alt="..." />
         </div>
         <div class="badge-precio text-center">
-          <span class="badge rounded-pill text-bg-danger fs-4">${{producto.precio_producto}}</span>
+          <span class="badge rounded-pill text-bg-danger fs-4">${{producto.precio}}</span>
         </div>
         <div class="card-body">
           <h5 class="card-title">{{producto.nombre_producto}}</h5>
-          <p class="card-text">ID Producto: {{producto.id}}</p>
+          <p class="card-text">{{producto.descripcion_producto}}</p>
             <ul class="list-unstyled d-flex justify-content-between g-3">
               <li class="list-item"><a class="btn btn-outline-primary btn-sm" href="{% url 'producto_detalle' producto.id %}">Detalle</a>
               </li>

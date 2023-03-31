@@ -1,6 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Cliente(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     email = models.EmailField(max_length=100)
@@ -13,22 +15,27 @@ class Cliente(models.Model):
 
 class Producto(models.Model):
     nombre_producto = models.CharField(max_length=50)
-    precio_producto = models.DecimalField(max_digits=10, decimal_places=2)
+    descripcion_producto = models.TextField(default="", blank=True)
+    precio = models.FloatField()
+    imagen_producto = models.ImageField(upload_to="productos", blank=True, null=True)
+
+    @property
+    def imagen_producto_url(self):
+        return self.imagen_producto.url if self.imagen_producto else ""
 
     def __str__(self):
-        return f'Producto ID:{self.id} - {self.nombre_producto} - $ {self.precio_producto}'
-
-class Producto_Pedido(models.Model):
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    pedido = models.ForeignKey('Pedido', on_delete=models.CASCADE)
-    cantidad_producto = models.IntegerField()
-
-    def __str__(self):
-        return f'{self.producto} x {self.cantidad_producto} en {self.pedido}'
+        return f'Producto ID:{self.id} - {self.nombre_producto}'
 class Pedido(models.Model):
-    fecha_pedido = models.DateField()
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    productos= models.ManyToManyField(Producto,through=Producto_Pedido)
+    cliente = models.ForeignKey(Cliente,on_delete=models.SET_NULL, null=True)
+    fecha_pedido = models.DateField(auto_now_add=True)
+    hora_pedido = models.TimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Pedido ID:{self.id} - {self.cliente} - Fecha:{self.fecha_pedido}'
+        return f'Pedido ID:{self.id} - {self.cliente} - {self.fecha_pedido}'
+class ProductoPedido(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, null=True)
+    pedido = models.ForeignKey(Pedido, on_delete=models.SET_NULL, null=True)
+    cantidad_producto = models.IntegerField(default=0, null=True)
+
+    def __str__(self):
+        return f'ID:{self.id} - {self.producto} - {self.cantidad_producto}'
