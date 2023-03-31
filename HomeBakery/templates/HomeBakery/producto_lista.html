@@ -7,10 +7,10 @@
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
     {% for producto in productos %}
     <div class="col">
-      <div class="card text-bg-dark border-0 rounded-5">
+      <div class="card h-100 text-bg-dark border-0 rounded-5">
         <div class="card-img-top position-relative">
           <div class="card-img-top-gradiente-vertical"></div>
-          <img src="{% static 'HomeBakery/assets/img/Hamburguesa-1.jpg' %}" class="img-fluid rounded-top-5" alt="..." />
+          <img src="{{producto.imagen_producto_url}}" class="img-fluid rounded-top-5" alt="..." />
         </div>
         <div class="badge-precio text-center">
           <span class="badge rounded-pill text-bg-danger fs-4">${{producto.precio}}</span>
