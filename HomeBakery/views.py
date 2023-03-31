@@ -6,11 +6,11 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-class PermisosProductoSoloPublisher(UserPassesTestMixin):
+class PermisosProductoSoloPropietario(UserPassesTestMixin):
     def test_func(self):
         user_id = self.request.user.id
         producto_id = self.kwargs.get("pk")
-        return Producto.objects.filter(publisher=user_id, id=producto_id).exists()
+        return Producto.objects.filter(propietario=user_id, id=producto_id).exists()
 class PermisosPedidoSoloCliente(UserPassesTestMixin):
     def test_func(self):
         user_id = self.request.user.id
@@ -29,17 +29,17 @@ class ProductoMineList(LoginRequiredMixin, ListView):
     template_name ="HomeBakery/producto_lista.html"
     context_object_name = "productos"
     def get_queryset(self):
-        return Producto.objects.filter(publisher=self.request.user.id).all()
+        return Producto.objects.filter(propietario=self.request.user.id).all()
 class ProductoDetail(DetailView):
     model = Producto
     template_name ="HomeBakery/producto_detalle.html"
     context_object_name = "producto"
-class ProductoUpdate(LoginRequiredMixin,PermisosProductoSoloPublisher,UpdateView):
+class ProductoUpdate(LoginRequiredMixin,PermisosProductoSoloPropietario,UpdateView):
     model = Producto
     success_url = reverse_lazy("producto_lista")
     template_name ="HomeBakery/producto_actualizar.html"
     fields = '__all__'
-class ProductoDelete(LoginRequiredMixin,PermisosProductoSoloPublisher,DeleteView):
+class ProductoDelete(LoginRequiredMixin,PermisosProductoSoloPropietario,DeleteView):
     model = Producto
     success_url = reverse_lazy("producto_lista")
     context_object_name = "producto"

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 class Producto(models.Model):
-    publisher = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="publisher")
+    propietario = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="publisher")
     nombre_producto = models.CharField(max_length=50)
     descripcion_producto = models.TextField(default="", blank=True)
     precio = models.FloatField()
