@@ -2,8 +2,8 @@
 {% load static %} 
 {% block main %}
 <section class="container px-4 py-5 mt-5">
-<h1 class="display-1 fw-bold mb-3 subtitle">Añade productos a tu nuevo aquí</h1>
-<form method="post">
+<h1 class="display-1 fw-bold mb-3 subtitle">Añade productos a tu pedido aquí</h1>
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {{form.as_p}}
   <input class="btn btn-warning" type="submit" value="Añadir Pedido" />

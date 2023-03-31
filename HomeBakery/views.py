@@ -9,57 +9,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 def index(request):
     return render(request, "HomeBakery/index.html")
-def pedido(request):
-    return render(request, "HomeBakery/pedido.html")
-def mostrar_pedido(request):
-    context = {
-        "form" : PedidoForm(),
-        "pedidos": Pedido.objects.all(),
-        }  
-    return render(request, "HomeBakery/pedido.html", context)
-def agregar_pedido(request):
-    if request.method == 'POST':
-        pedido_form = PedidoForm(request.POST)
-        if pedido_form.is_valid():
-            pedido_form.save()
-    else:
-        pedido_form = PedidoForm()
-
-    context = {
-        "form" : PedidoForm(),
-        "pedidos": Pedido.objects.all(),
-      }  
-    return render(request, "HomeBakery/pedido.html", context)
 def producto(request):
     return render(request, "HomeBakery/producto.html")
-def buscar_producto(request):
-    criterio = request.GET.get("criterio")
-    context = {
-        "productos": Producto.objects.filter(nombre_producto__icontains=criterio).all(),
-      }  
-    return render(request, "HomeBakery/producto_lista.html", context)
 def cliente(request):
     return render(request, "HomeBakery/cliente.html")
-def mostrar_cliente(request):
-    context = {
-        "form" : ClienteForm(),
-        "clientes": Cliente.objects.all(),
-        }  
-    return render(request, "HomeBakery/cliente.html", context)
-def agregar_cliente(request):
-    if request.method == 'POST':
-        cliente_form = ClienteForm(request.POST)
-        if cliente_form.is_valid():
-            cliente_form.save()
-    else:
-        cliente_form = ClienteForm()
-
-    context = {
-        "form" : ClienteForm(),
-        "clientes": Cliente.objects.all(),
-      }  
-    return render(request, "HomeBakery/cliente.html", context)
-
 class ProductoList(ListView):
     model = Producto
     template_name ="HomeBakery/producto_lista.html"
@@ -91,10 +44,6 @@ class ProductoSearch(ListView):
         criterio = self.request.GET.get("criterio")
         result = Producto.objects.filter(nombre_producto__icontains=criterio).all()
         return result
-class ClienteList(ListView):
-    model = Cliente
-    template_name ="HomeBakery/cliente_lista.html"
-    context_object_name = "clientes"    
 class PedidoList(ListView):
     model = Pedido
     template_name ="HomeBakery/pedido_lista.html"
@@ -118,10 +67,29 @@ class PedidoCreate(LoginRequiredMixin,CreateView):
     template_name ="HomeBakery/pedido_crear.html"
     context_object_name = "pedido"
     fields = '__all__'  
+class ClienteList(ListView):
+    model = Cliente
+    template_name ="HomeBakery/cliente_lista.html"
+    context_object_name = "clientes"    
 class ClienteDetail(DetailView):
     model = Cliente
     template_name ="HomeBakery/cliente_detalle.html"
     context_object_name = "cliente"
+class ClienteUpdate(LoginRequiredMixin,UpdateView):
+    model = Cliente
+    success_url = reverse_lazy("cliente_lista")
+    template_name ="HomeBakery/cliente_actualizar.html"
+    fields = '__all__'
+class ClienteDelete(LoginRequiredMixin,DeleteView):
+    model = Cliente
+    success_url = reverse_lazy("cliente_lista")
+    context_object_name = "cliente"
+class ClienteCreate(LoginRequiredMixin,CreateView):
+    model = Cliente
+    success_url = reverse_lazy("cliente_lista")
+    template_name ="HomeBakery/cliente_crear.html"
+    context_object_name = "cliente"
+    fields = '__all__'  
 class Login(LoginView):
     next_page = reverse_lazy("index")
 class SignUp(CreateView):
