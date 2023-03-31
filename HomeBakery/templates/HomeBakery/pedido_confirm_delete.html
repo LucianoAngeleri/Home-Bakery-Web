@@ -2,7 +2,7 @@
 {% load static %}
 {% block main %}
 <section class="container col-xxl-8 px-4 py-5 mt-5">
-    <h1 class="display-3 fw-bold mb-3 text-danger">Va a eliminar el pedido del {{pedido.fecha_pedido}}</h1>
+    <h1 class="display-3 fw-bold mb-3 text-danger">Va a eliminar el pedido con ID: {{pedido.id}}</h1>
     <h2 class="display-4 fw-bold mb-3 subtitle">Está seguro de que desea eliminarlo?</h2>
       <form method="post">
         {% csrf_token %} 

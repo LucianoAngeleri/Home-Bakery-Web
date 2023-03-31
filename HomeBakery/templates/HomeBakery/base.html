@@ -17,7 +17,7 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-dark sticky-top rounded-bottom-4">
             <div class="container-fluid">
-              <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'HomeBakery/assets/img/Logo-HOME-BAKERY_White.png' %}" class="d-inline-block align-text-top" alt="Logo de Home Bakery" width="32px" height="32px">Home Bakery</a>
+              <a class="navbar-brand text-warning " href="{% url 'index' %}"><img src="{% static 'HomeBakery/assets/img/Logo-HOME-BAKERY_ColorMono.png' %}" class="d-inline-block align-text-top" alt="Logo de Home Bakery" width="52px"><span class="px-1"></span>Home Bakery</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -34,9 +34,6 @@
                     <a class="nav-link" href="{% url 'pedido_crear' %}"><i class="fa-solid fa-cart-shopping px-2 py-1"></i></span>Hacer un Pedido</a>
                   </li>
                   {% endif %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'cliente' %}"><i class="fa-solid fa-user px-2 py-1"></i>Clientes</a>
-                  </li>
                 </ul>
                 <form class="d-flex" role="search" action="{% url 'producto_buscar' %}">
                   <input class="form-control me-2" name="criterio" type="search" placeholder="Buscar productos" aria-label="Search">
@@ -51,7 +48,8 @@
                     <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-start  text-small">
                       <li class="text-center m-3 fw-bold lead">Hola, {{ user.username }}</li>
                       <li><a class="dropdown-item" href="#"><i class="fa-regular fa-address-card px-2 py-1"></i>Mi Perfil</a></li>
-                      <li><a class="dropdown-item" href="{% url 'pedido_lista' %}"><i class="fa-solid fa-cart-shopping px-2 py-1"></i>Mis Pedidos</a>
+                      <li><a class="dropdown-item" href="{% url 'producto_lista_mine' %}"><i class="fa-solid fa-bread-slice  px-2 py-1"></i>Mis Productos</a>
+                      <li><a class="dropdown-item" href="{% url 'pedido_lista_mine' %}"><i class="fa-solid fa-cart-shopping px-2 py-1"></i>Mis Pedidos</a>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item text-danger" href="{% url 'logout' %}"><i class="fa-solid fa-xmark px-2 py-1"></i>Salir</a></li>
                     </ul>
@@ -74,8 +72,8 @@
         <div class="row g-2">
           <aside class="col-12 col-lg d-flex flex-column align-items-center text-secondary p-3">
             <hr class="d-md-none">
-            <a href="/" class="text-decoration-none">
-              <img src="{% static 'HomeBakery/assets/img/Logo-HOME-BAKERY_White.png' %}" alt="Logo de Home Bakery" width="48px" height="48px">
+            <a href="{% url 'index' %}" class="text-decoration-none">
+              <img src="{% static 'HomeBakery/assets/img/Logo-HOME-BAKERY_Color.png' %}" alt="Logo de Home Bakery" width="98px">
             </a>
             <h6 class="fs-5 text-warning">Home Bakery</h6>
             <span class="">© Copyright // Home Bakery // 2023</span>
@@ -115,9 +113,9 @@
             <hr class="d-md-none">
             <h5 class="display-6 text-center">Seguinos en nuestras redes sociales:</h5>
             <ul class="list-unstyled d-flex justify-content-center">
-              <li class="m-2"><a class="text-secondary" href="#"><i class="fs-2 fa-brands fa-facebook"></i></a></li>
-              <li class="m-2"><a class="text-secondary" href="#"><i class="fs-2 fa-brands fa-instagram"></i></i></a></li>
-              <li class="m-2"><a class="text-secondary" href="#"><i class="fs-2 fa-brands fa-github"></i></i></a></li>
+              <li class="m-2"><a class="text-secondary" href="https://www.facebook.com/"><i class="fs-2 fa-brands fa-facebook"></i></a></li>
+              <li class="m-2"><a class="text-secondary" href="https://www.instagram.com/"><i class="fs-2 fa-brands fa-instagram"></i></i></a></li>
+              <li class="m-2"><a class="text-secondary" href="https://github.com/LucianoAngeleri"><i class="fs-2 fa-brands fa-github"></i></i></a></li>
             </ul>
           </aside>
         </div>

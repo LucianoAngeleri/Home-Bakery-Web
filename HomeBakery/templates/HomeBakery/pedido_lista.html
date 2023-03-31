@@ -2,11 +2,12 @@
 {% load static %}
 {% block main %}
 <section class="container px-4 py-5 mt-3">
-  <h1 class="display-1 fw-bold lh-1 mb-3 mainTitle">Lista de Pedidos</h1>
-  <h2 class="display-4 fw-bold lh-1 mb-3 subtitle">Estos son tus pedidos</h2>
-  <div class="row row-cols-1 g-3">
+  <h1 class="display-1 fw-bold mb-3 mainTitle">Lista de Pedidos</h1>
+  {% if pedidos %}
+  <h2 class="display-4 fw-bold mb-3 subtitle">Estos son los pedidos</h2>
+  <div class="row row-cols-1">
     {% for pedido in pedidos %}
-    <div class="card text-bg-dark border-0 rounded-5 p-0">
+    <div class="card text-bg-dark border-0 rounded-5 p-0 mb-3">
       <div class="row g-0">
         <div class="position-relative col-md-4">
           <div class="card-img-top-gradiente-horizontal"></div>
@@ -17,12 +18,12 @@
             <div class="w-100 me-3 d-flex flex-column">
               <h5 class="card-title">ID pedido: {{pedido.id}}</h5>
               <p class="card-text">Productos: {{pedido.productos}}</p>
-              <p class="card-text mt-auto"><small class="text-body-secondary">{{pedido.fecha_pedido}}</small></p>
+              <p class="card-text mt-auto"><small class="text-body-secondary">{{pedido.fecha_pedido}} a las {{pedido.hora_pedido}} hs</small></p>
             </div>
             <ul class="list-unstyled d-grid gap-2 text-end p-2">
               <li class="list-item"><a class="btn btn-outline-primary btn-sm w-100" href="{% url 'pedido_detalle' pedido.id %}">Detalle</a>
               </li>
-              {% if user.is_authenticated %}
+              {% if user.is_authenticated and user.id == pedido.cliente.id %}
               <li class="list-item"><a class="btn btn-outline-warning btn-sm w-100" href="{% url 'pedido_actualizar' pedido.id %}">Actualizar</a></li>
               <li class="list-item"><a class="btn btn-outline-danger btn-sm w-100" href="{% url 'pedido_borrar' pedido.id %}">Eliminar</a></li>
               {% endif %}
@@ -33,5 +34,8 @@
       </div>
     </div>
     {% endfor %}
+    {% else %}
+  <h2 class="display-4 fw-bold mb-3 subtitle">No existe ningún pedido</h2>
+  {% endif %}
 </section>
 {% endblock %}

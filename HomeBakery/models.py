@@ -1,19 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-class Cliente(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    email = models.EmailField(max_length=100)
-    telefono = models.CharField(max_length=20)
-    direccion = models.CharField(max_length=100)
-    fecha_nacimiento = models.DateField()
-
-    def __str__(self):
-        return f'Cliente ID:{self.id} - {self.nombre} {self.apellido}'
-
 class Producto(models.Model):
+    publisher = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="publisher")
     nombre_producto = models.CharField(max_length=50)
     descripcion_producto = models.TextField(default="", blank=True)
     precio = models.FloatField()
@@ -26,7 +14,7 @@ class Producto(models.Model):
     def __str__(self):
         return f'Producto ID:{self.id} - {self.nombre_producto}'
 class Pedido(models.Model):
-    cliente = models.ForeignKey(Cliente,on_delete=models.SET_NULL, null=True)
+    cliente = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="cliente")
     fecha_pedido = models.DateField(auto_now_add=True)
     hora_pedido = models.TimeField(auto_now_add=True)
 

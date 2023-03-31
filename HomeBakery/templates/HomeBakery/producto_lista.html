@@ -3,6 +3,7 @@
 {% block main %}
 <section class="container px-4 py-5 mt-3">
   <h1 class="display-1 fw-bold mb-3 mainTitle">Lista de Productos</h1>
+  {% if productos %}
   <h2 class="display-4 fw-bold mb-3 subtitle">Productos disponibles</h2>
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
     {% for producto in productos %}
@@ -21,7 +22,7 @@
             <ul class="list-unstyled d-flex justify-content-between g-3">
               <li class="list-item"><a class="btn btn-outline-primary btn-sm" href="{% url 'producto_detalle' producto.id %}">Detalle</a>
               </li>
-              {% if user.is_authenticated %}
+              {% if user.is_authenticated and user.id == producto.publisher.id %}
               <li class="list-item"><a class="btn btn-outline-warning btn-sm" href="{% url 'producto_actualizar' producto.id %}">Actualizar</a></li>
               <li class="list-item"><a class="btn btn-outline-danger btn-sm" href="{% url 'producto_borrar' producto.id %}">Eliminar</a></li>
               {% endif %}
@@ -30,6 +31,9 @@
       </div>
     </div>
     {% endfor %}
+    {% else %}
+    <h2 class="display-4 fw-bold mb-3 subtitle">No existe ningún producto</h2>
+    {% endif %}
   </div>
 </section>
 {% endblock %}
