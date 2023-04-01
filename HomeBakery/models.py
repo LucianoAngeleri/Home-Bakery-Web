@@ -40,6 +40,9 @@ class Profile(models.Model):
     direccion = models.CharField(max_length=100, blank=True, null=True)
     fecha_nacimiento = models.DateField(blank=True, null=True)
     avatar = models.ImageField(upload_to="avatares", blank=True, null=True)
+    @property
+    def imagen_avatar_url(self):
+        return self.avatar.url if self.avatar else ""
 
     def __str__(self):
         return f'ID:{self.id} - {self.user} {self.nombre} {self.apellido}'

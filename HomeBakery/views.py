@@ -118,7 +118,7 @@ class ProfileCreate(CreateView):
     success_url = reverse_lazy("index")
     template_name ="HomeBakery/profile_crear.html"
     context_object_name = "profile"
-    fields = ['nombre','apellido','email','telefono','direccion','fecha_nacimiento','avatar']
+    fields =['nombre','apellido','email','telefono','direccion','fecha_nacimiento','avatar']
 
     def form_valid(self,form):
         form.instance.user = self.request.user

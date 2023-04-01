@@ -43,14 +43,14 @@
                   {% if user.is_authenticated %}
                   <div class="dropdown text-end">
                     <a href="#" class="badge d-flex align-items-center p-1 pe-3 border border-secondary-subtle rounded-pill dropdown-toggle fs-4" data-bs-toggle="dropdown" aria-expanded="false">
-                      <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle me-1">
+                      <img src="{{user.profile.imagen_avatar_url}}" alt="mdo" width="32" height="32" class="rounded-circle me-1">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-start  text-small">
                       <li class="text-center m-3 fw-bold lead">Hola, {{ user.username }}</li>
                       {% if user.profile %}
                         <li><a class="dropdown-item" href="{% url 'profile_actualizar' user.profile.id %}"><i class="fa-regular fa-address-card px-2 py-1"></i>Actualizar Perfil</a></li>
                       {% else %}
-                        <li><a class="dropdown-item" href="{% url 'profile_crear' user.profile.id %}"><i class="fa-regular fa-address-card px-2 py-1"></i>Crear Perfil</a></li>
+                        <li><a class="dropdown-item" href="{% url 'profile_crear' %}"><i class="fa-regular fa-address-card px-2 py-1"></i>Crear Perfil</a></li>
                       {% endif %}
                       <li><a class="dropdown-item" href="{% url 'producto_lista_mine' %}"><i class="fa-solid fa-bread-slice  px-2 py-1"></i>Mis Productos</a>
                       <li><a class="dropdown-item" href="{% url 'pedido_lista_mine' %}"><i class="fa-solid fa-cart-shopping px-2 py-1"></i>Mis Pedidos</a>
