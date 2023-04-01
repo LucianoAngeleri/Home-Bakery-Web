@@ -20,6 +20,10 @@ class Pedido(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, null=True)
     cantidad_producto = models.IntegerField(default=0, null=True)
 
+    @property
+    def total_precio(self):
+        return self.cantidad_producto * self.producto.precio
+
     def __str__(self):
         return f'Pedido ID:{self.id} - {self.cliente} - {self.fecha_pedido}'
 # A implementar un carrito de productos

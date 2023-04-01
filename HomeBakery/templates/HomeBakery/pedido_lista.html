@@ -11,20 +11,21 @@
       <div class="row g-0">
         <div class="position-relative col-md-4">
           <div class="card-img-top-gradiente-horizontal"></div>
-          <img src="{% static 'HomeBakery/assets/img/img-pedido.jpg' %}" class="img-fluid rounded-start-5" alt="Imágen del producto del pedido">
+          <img src="{{ pedido.producto.imagen_producto_url }}" class="img-fluid rounded-start-5" alt="Imágen del producto del pedido">
         </div>
         <div class="col-md-8 pe-3">
           <div class="card-body d-flex justify-content-between h-100">
             <div class="w-100 me-3 d-flex flex-column">
               <h5 class="card-title">ID pedido: {{pedido.id}}</h5>
               <p class="card-text">Productos: {{pedido.producto}}</p>
-              <p class="card-text">Cantidad de Producto: {{pedido.cantidad_producto}} unidades</p>
+              <p class="card-text text-warning">Cantidad de Producto: {{pedido.cantidad_producto}} unidades x ${{pedido.producto.precio}} </p>
+              <p class="card-text fw-bold text-danger">Precio Total: ${{pedido.total_precio}}</p>
               <p class="card-text mt-auto"><small class="text-body-secondary">{{pedido.fecha_pedido}} de {{pedido.hora_pedido}} hs</small></p>
             </div>
             <ul class="list-unstyled d-grid gap-2 text-end p-2">
               <li class="list-item"><a class="btn btn-outline-primary btn-sm w-100" href="{% url 'pedido_detalle' pedido.id %}">Detalle</a>
               </li>
-              {% if user.is_authenticated %}
+              {% if user.is_authenticated and user.id == pedido.cliente.id %}
               <li class="list-item"><a class="btn btn-outline-warning btn-sm w-100" href="{% url 'pedido_actualizar' pedido.id %}">Actualizar</a></li>
               <li class="list-item"><a class="btn btn-outline-danger btn-sm w-100" href="{% url 'pedido_borrar' pedido.id %}">Eliminar</a></li>
               {% endif %}
@@ -36,8 +37,7 @@
     </div>
     {% endfor %}
   {% else %}
-  <h2 class="display-4 fw-bold lh-1 mb-3 subtitle">No existe ningún pedido.</h2>
+    <h2 class="display-4 fw-bold lh-1 mb-3 subtitle">No existe ningún pedido.</h2>
   {% endif %}
-  
 </section>
 {% endblock %}
