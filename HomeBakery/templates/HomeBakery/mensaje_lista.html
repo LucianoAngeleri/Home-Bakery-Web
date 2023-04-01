@@ -1,0 +1,30 @@
+{% extends 'HomeBakery/base.html' %}
+{% load static %}
+{% block main %}
+<section class="container px-4 py-5 mt-3">
+  <h1 class="display-1 fw-bold mb-3 mainTitle">Lista de Mensajes</h1>
+  {% if mensajes %}
+  <h2 class="display-4 fw-bold mb-3 subtitle">Tus mensajes</h2>
+  <div class="row row-cols-1 g-3">
+    {% for mensaje in mensajes %}
+    <div class="col">
+      <div class="card h-100 text-bg-dark border-0 rounded-5">
+        <div class="card-body">
+          <h5 class="card-header round rounded-4">Mensaje de <strong>{{mensaje.email}}</strong></h5>
+          <p class="card-text p-3">"{{mensaje.mensaje}}"</p>
+          <div class="card-footer d-flex justify-content-between round rounded-4">
+            <p class="card-text my-0"><small class="text-body-secondary">Fecha: {{mensaje.fecha_creacion}}</small></p>
+            {% if user.is_authenticated and user.id == mensaje.destinatario.id %}
+            <a class="btn btn-outline-danger btn-sm" href="{% url 'mensaje_borrar' mensaje.id %}">Eliminar</a>
+            {% endif %}          
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h2 class="display-4 fw-bold mb-3 subtitle">No existe ningún mensaje</h2>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

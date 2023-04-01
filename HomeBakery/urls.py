@@ -24,5 +24,8 @@ urlpatterns = [
     path('profile/crear', views.ProfileCreate.as_view() , name='profile_crear'),
     path('profile/<pk>/actualizar', views.ProfileUpdate.as_view() , name='profile_actualizar'),
     path('about/', views.AboutView.as_view() , name='about'),
+    path('mensaje/crear', views.MensajeCreate.as_view() , name='mensaje_crear'),
+    path('mensaje/lista/mine', views.MensajeMineList.as_view() , name='mensaje_lista_mine'),
+    path('mensaje/<pk>/borrar', views.MensajeDelete.as_view() , name='mensaje_borrar'),
 ]
 

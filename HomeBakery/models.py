@@ -22,7 +22,10 @@ class Pedido(models.Model):
 
     @property
     def total_precio(self):
-        return self.cantidad_producto * self.producto.precio
+        if self.producto is not None:
+            return self.cantidad_producto * self.producto.precio
+        else:
+            return 0
 
     def __str__(self):
         return f'Pedido ID:{self.id} - {self.cliente} - {self.fecha_pedido}'
@@ -50,3 +53,8 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'ID:{self.id} - {self.user} {self.nombre} {self.apellido}'
+class Mensaje(models.Model):
+    mensaje = models.TextField(max_length=1000)
+    email =models.EmailField()
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    destinatario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mensajes")
