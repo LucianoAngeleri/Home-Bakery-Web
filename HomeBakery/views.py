@@ -50,12 +50,11 @@ class ProductoCreate(LoginRequiredMixin,CreateView):
     success_url = reverse_lazy("producto_lista_mine")
     template_name ="HomeBakery/producto_crear.html"
     context_object_name = "producto"
-    fields = '__all__'
-    #['nombre_producto','descripcion_producto','precio','imagen_producto']
+    fields = ['nombre_producto','descripcion_producto','precio','imagen_producto']
 
-    # def form_valid(self,form):
-    #      form.instance.user = self.request.user
-    #      return super().form_valid(form)
+    def form_valid(self,form):
+        form.instance.propietario = self.request.user
+        return super().form_valid(form)
 class ProductoSearch(ListView):
     model = Producto
     template_name ="HomeBakery/producto_buscar.html"
@@ -92,11 +91,11 @@ class PedidoCreate(LoginRequiredMixin,CreateView):
     success_url = reverse_lazy("pedido_lista_mine")
     template_name ="HomeBakery/pedido_crear.html"
     context_object_name = "pedido"
-    fields = '__all__'  
+    fields = ['producto','cantidad_producto']  
     
-    # def form_valid(self,form):
-    #     form.instance.user = self.request.user
-    #     return super().form_valid(form)
+    def form_valid(self,form):
+        form.instance.cliente = self.request.user
+        return super().form_valid(form)
 class Login(LoginView):
     next_page = reverse_lazy("index")
 class SignUp(CreateView):

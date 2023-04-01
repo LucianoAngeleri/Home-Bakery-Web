@@ -22,7 +22,10 @@ class Pedido(models.Model):
 
     @property
     def total_precio(self):
-        return self.cantidad_producto * self.producto.precio
+        if self.producto is not None:
+            return self.cantidad_producto * self.producto.precio
+        else:
+            return 0
 
     def __str__(self):
         return f'Pedido ID:{self.id} - {self.cliente} - {self.fecha_pedido}'
