@@ -1,0 +1,13 @@
+{% extends 'HomeBakery/base.html' %}
+{% load static %}
+{% block main %}
+<section class="container px-4 py-5 mt-3">
+    <h1 class="display-1 fw-bold mb-3 mainTitle">Bienvenido a Home Bakery</h1>
+    <h2 class="display-4 fw-bold mb-3 subtitle">Complete el registro con sus datos:</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="btn btn-warning" type="submit" value="Registrarse">
+    </form>
+</section>
+{% endblock %}

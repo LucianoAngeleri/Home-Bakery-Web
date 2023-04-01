@@ -1,19 +1,28 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('producto/', views.mostrar_producto, name='producto'),
-    path('producto/agregar', views.agregar_producto, name='agregar_producto'),
+    path('', views.IndexView.as_view(), name='index'),
+    path('producto/', views.ProductoView.as_view(), name='producto'),
     path('producto/lista', views.ProductoList.as_view() , name='producto_lista'),
     path('producto/<pk>/detalle', views.ProductoDetail.as_view() , name='producto_detalle'),
-    path('producto/buscar', views.buscar_producto, name='buscar_producto'),
-    path('pedido/', views.mostrar_pedido, name='pedido'),
-    path('pedido/agregar', views.agregar_pedido, name='agregar_pedido'),
+    path('producto/<pk>/actualizar', views.ProductoUpdate.as_view() , name='producto_actualizar'),
+    path('producto/<pk>/borrar', views.ProductoDelete.as_view() , name='producto_borrar'),
+    path('producto/crear', views.ProductoCreate.as_view() , name='producto_crear'),
+    path('producto/buscar', views.ProductoSearch.as_view(), name='producto_buscar'),
     path('pedido/lista', views.PedidoList.as_view() , name='pedido_lista'),
+    path('pedido/crear', views.PedidoCreate.as_view(), name='pedido_crear'),
     path('pedido/<pk>/detalle', views.PedidoDetail.as_view() , name='pedido_detalle'),
-    path('cliente/', views.mostrar_cliente, name='cliente'),
-    path('cliente/agregar', views.agregar_cliente, name='agregar_cliente'),
-    path('cliente/lista', views.ClienteList.as_view() , name='cliente_lista'),
-    path('cliente/<pk>/detalle', views.ClienteDetail.as_view() , name='cliente_detalle'),
+    path('pedido/<pk>/actualizar', views.PedidoUpdate.as_view() , name='pedido_actualizar'),
+    path('pedido/<pk>/borrar', views.PedidoDelete.as_view() , name='pedido_borrar'),
+    path('login/', views.Login.as_view() , name='login'),
+    path('signup/', views.SignUp.as_view() , name='signup'),
+    path('logout/', views.Logout.as_view() , name='logout'),
+    path('producto/lista/mine', views.ProductoMineList.as_view() , name='producto_lista_mine'),
+    path('pedido/lista/mine', views.PedidoMineList.as_view() , name='pedido_lista_mine'),
+    path('profile/crear', views.ProfileCreate.as_view() , name='profile_crear'),
+    path('profile/<pk>/actualizar', views.ProfileUpdate.as_view() , name='profile_actualizar'),
+    path('about/', views.AboutView.as_view() , name='about'),
 ]
+

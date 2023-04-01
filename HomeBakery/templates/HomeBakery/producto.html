@@ -1,21 +1,45 @@
-{% extends 'HomeBakery/base.html' %}
-{% load static %}
-{% block main %}
+{% extends 'HomeBakery/base.html' %} {% load static %} {% block main %}
 <section class="container col-xxl-8 px-4 py-5">
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-      <div class="col-10 col-sm-8 col-lg-6">
-        <img src="{% static 'HomeBakery/assets/img/PanMermelada.psdMesa-de-trabajo-1_3.png' %}" class="d-block mx-lg-auto img-fluid" alt="Imágen de Panes" width="700" height="500" loading="lazy">
-      </div>
-      <div class="col-lg-6">
-        <h1 class="display-1 fw-bold lh-1 mb-3 mainTitle">Productos</h1>
-        <a class="btn btn-outline-warning" href="{% url 'producto_lista' %}">Accede a la lista</a>
-        <h2 class="display-4 fw-bold lh-1 mb-3 subtitle">Crea un producto nuevo aqui</h2>
-        <form action="{% url 'agregar_producto' %}" method="post">
-          {% csrf_token %}
-          {{form.as_p}}
-          <input class="btn btn-warning" type="submit" value="Añadir Producto">
-        </form>
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <img
+        src="{% static 'HomeBakery/assets/img/PanMermelada.psdMesa-de-trabajo-1_3.png' %}"
+        class="d-block mx-lg-auto img-fluid"
+        alt="Imágen de Panes"
+        width="700"
+        height="500"
+        loading="lazy" />
+    </div>
+    <div class="col-lg-6">
+      <h1 class="display-1 fw-bold lh-1 mb-3 mainTitle">Productos</h1>
+      <a class="btn btn-outline-warning" href="{% url 'producto_lista' %}">Accede a la lista</a>
+      <a class="btn btn-outline-warning" href="{% url 'producto_crear' %}">Crear un nuevo Producto</a>
+    </div>
+  </div>
+</section>
+<section class="container">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+    {% for producto in productos %}
+    <div class="col">
+      <div class="card text-bg-dark border-0 rounded-5">
+        <div class="card-img-top position-relative">
+          <div class="card-img-top-gradiente-vertical"></div>
+          <img src="{% static 'HomeBakery/assets/img/Hamburguesa-1.jpg' %}" class="img-fluid rounded-top-5" alt="..." />
+        </div>
+        <div class="badge-precio text-center">
+          <span class="badge rounded-pill text-bg-danger fs-4">{{producto.precio_producto}}</span>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{producto.nombre_producto}}</h5>
+          <p class="card-text">{{producto.id}}</p>
+          <div class="d-flex justify-content-end">
+            <a href="#" class="btn btn-warning shadow">Añadir a Pedidos</a>
+          </div>
+        </div>
       </div>
     </div>
-</section> 
+    {% endfor %}
+
+  </div>
+</section>
 {% endblock %}

@@ -2,16 +2,16 @@
 {% load static %}
 {% block main %}
 <section class="container px-4 py-5 mt-3">
+{% if productos %}
   <h1 class="display-1 fw-bold mb-3 mainTitle">Lista de Productos</h1>
-  {% if productos %}
-  <h2 class="display-4 fw-bold mb-3 subtitle">Productos disponibles</h2>
+  <h2 class="display-4 fw-bold mb-3 subtitle">Productos Encontrados</h2>
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
     {% for producto in productos %}
     <div class="col">
       <div class="card h-100 text-bg-dark border-0 rounded-5">
         <div class="card-img-top position-relative">
           <div class="card-img-top-gradiente-vertical"></div>
-          <img src="{{producto.imagen_producto_url}}" class="img-fluid rounded-top-5" alt="Imágen del Producto" />
+          <img src="{{producto.imagen_producto_url}}" class="img-fluid rounded-top-5" alt="..." />
         </div>
         <div class="badge-precio text-center">
           <span class="badge rounded-pill text-bg-danger fs-4">${{producto.precio}}</span>
@@ -31,9 +31,12 @@
       </div>
     </div>
     {% endfor %}
-    {% else %}
-    <h2 class="display-4 fw-bold mb-3 subtitle">No existe ningún producto</h2>
-    {% endif %}
   </div>
+{% else %}
+  <div class="text-center">
+    <span class="display-1 subtitle"><i class="fa-sharp fa-regular fa-circle-xmark"></i></span> 
+  </div>
+  <h2 class="display-2 fw-bold my-3 subtitle">No se encontraron productos...</h2>
+{% endif %}
 </section>
 {% endblock %}

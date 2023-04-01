@@ -1,101 +1,125 @@
-from django.shortcuts import render
-from HomeBakery.models import Producto, Cliente, Pedido
-from .forms import ProductoForm, ClienteForm, PedidoForm
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from HomeBakery.models import Producto, Pedido, Profile
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-def index(request):
-    return render(request, "HomeBakery/index.html")
-def pedido(request):
-    return render(request, "HomeBakery/pedido.html")
-def mostrar_pedido(request):
-    context = {
-        "form" : PedidoForm(),
-        "pedidos": Pedido.objects.all(),
-        }  
-    return render(request, "HomeBakery/pedido.html", context)
-def agregar_pedido(request):
-    if request.method == 'POST':
-        pedido_form = PedidoForm(request.POST)
-        if pedido_form.is_valid():
-            pedido_form.save()
-    else:
-        pedido_form = PedidoForm()
+class PermisosProductoSoloPropietario(UserPassesTestMixin):
+    def test_func(self):
+        user_id = self.request.user.id
+        producto_id = self.kwargs.get("pk")
+        return Producto.objects.filter(propietario=user_id, id=producto_id).exists()
+class PermisosPedidoSoloCliente(UserPassesTestMixin):
+    def test_func(self):
+        user_id = self.request.user.id
+        pedido_id = self.kwargs.get("pk")
+        return Pedido.objects.filter(cliente=user_id, id=pedido_id).exists()
+class IndexView(TemplateView):
+    template_name = "HomeBakery/index.html"
+class AboutView(TemplateView):
+    template_name = "HomeBakery/about.html"
 
-    context = {
-        "form" : PedidoForm(),
-        "pedidos": Pedido.objects.all(),
-      }  
-    return render(request, "HomeBakery/pedido.html", context)
-def producto(request):
-    return render(request, "HomeBakery/producto.html")
-def mostrar_producto(request):
-    context = {
-        "form" : ProductoForm(),
-        "productos": Producto.objects.all(),
-        }  
-    return render(request, "HomeBakery/producto.html", context)
-def agregar_producto(request):
-    if request.method == 'POST':
-        producto_form = ProductoForm(request.POST)
-        if producto_form.is_valid():
-            producto_form.save()
-    else:
-        producto_form = ProductoForm()
-
-    context = {
-        "form" : ProductoForm(),
-        "productos": Producto.objects.all(),
-      }  
-    return render(request, "HomeBakery/producto.html", context)
-def buscar_producto(request):
-    criterio = request.GET.get("criterio")
-    context = {
-        "productos": Producto.objects.filter(nombre_producto__icontains=criterio).all(),
-      }  
-    return render(request, "HomeBakery/producto_lista.html", context)
-def cliente(request):
-    return render(request, "HomeBakery/cliente.html")
-def mostrar_cliente(request):
-    context = {
-        "form" : ClienteForm(),
-        "clientes": Cliente.objects.all(),
-        }  
-    return render(request, "HomeBakery/cliente.html", context)
-def agregar_cliente(request):
-    if request.method == 'POST':
-        cliente_form = ClienteForm(request.POST)
-        if cliente_form.is_valid():
-            cliente_form.save()
-    else:
-        cliente_form = ClienteForm()
-
-    context = {
-        "form" : ClienteForm(),
-        "clientes": Cliente.objects.all(),
-      }  
-    return render(request, "HomeBakery/cliente.html", context)
-
+class ProductoView(TemplateView):
+    template_name = "HomeBakery/producto.html"
 class ProductoList(ListView):
     model = Producto
     template_name ="HomeBakery/producto_lista.html"
     context_object_name = "productos"
-class ClienteList(ListView):
-    model = Cliente
-    template_name ="HomeBakery/cliente_lista.html"
-    context_object_name = "clientes"    
-class PedidoList(ListView):
-    model = Pedido
-    template_name ="HomeBakery/pedido_lista.html"
-    context_object_name = "pedidos"    
+class ProductoMineList(LoginRequiredMixin, ListView):
+    model = Producto
+    template_name ="HomeBakery/producto_lista.html"
+    context_object_name = "productos"
+    def get_queryset(self):
+        return Producto.objects.filter(propietario=self.request.user.id).all()
 class ProductoDetail(DetailView):
     model = Producto
     template_name ="HomeBakery/producto_detalle.html"
     context_object_name = "producto"
-class ClienteDetail(DetailView):
-    model = Cliente
-    template_name ="HomeBakery/cliente_detalle.html"
-    context_object_name = "cliente"
+class ProductoUpdate(LoginRequiredMixin,PermisosProductoSoloPropietario,UpdateView):
+    model = Producto
+    success_url = reverse_lazy("producto_lista_mine")
+    template_name ="HomeBakery/producto_actualizar.html"
+    fields = '__all__'
+class ProductoDelete(LoginRequiredMixin,PermisosProductoSoloPropietario,DeleteView):
+    model = Producto
+    success_url = reverse_lazy("producto_lista_mine")
+    context_object_name = "producto"
+class ProductoCreate(LoginRequiredMixin,CreateView):
+    model = Producto
+    success_url = reverse_lazy("producto_lista_mine")
+    template_name ="HomeBakery/producto_crear.html"
+    context_object_name = "producto"
+    fields = '__all__'
+    #['nombre_producto','descripcion_producto','precio','imagen_producto']
+
+    # def form_valid(self,form):
+    #      form.instance.user = self.request.user
+    #      return super().form_valid(form)
+class ProductoSearch(ListView):
+    model = Producto
+    template_name ="HomeBakery/producto_buscar.html"
+    context_object_name = "productos"
+    def get_queryset(self): 
+        criterio = self.request.GET.get("criterio")
+        result = Producto.objects.filter(nombre_producto__icontains=criterio).all()
+        return result
+class PedidoList(ListView):
+    model = Pedido
+    template_name ="HomeBakery/pedido_lista.html"
+    context_object_name = "pedidos"
+class PedidoMineList(LoginRequiredMixin,ListView):
+    model = Pedido
+    template_name ="HomeBakery/pedido_lista.html"
+    context_object_name = "pedidos"
+    def get_queryset(self):
+        return Pedido.objects.filter(cliente=self.request.user.id).all()
 class PedidoDetail(DetailView):
     model = Pedido
     template_name ="HomeBakery/pedido_detalle.html"
     context_object_name = "pedido"
+class PedidoUpdate(LoginRequiredMixin,PermisosPedidoSoloCliente,UpdateView):
+    model = Pedido
+    success_url = reverse_lazy("pedido_lista_mine")
+    template_name ="HomeBakery/pedido_actualizar.html"
+    fields = '__all__'
+class PedidoDelete(LoginRequiredMixin,PermisosPedidoSoloCliente,DeleteView):
+    model = Pedido
+    success_url = reverse_lazy("pedido_lista_mine")
+    context_object_name = "pedido"
+class PedidoCreate(LoginRequiredMixin,CreateView):
+    model = Pedido
+    success_url = reverse_lazy("pedido_lista_mine")
+    template_name ="HomeBakery/pedido_crear.html"
+    context_object_name = "pedido"
+    fields = '__all__'  
+    
+    # def form_valid(self,form):
+    #     form.instance.user = self.request.user
+    #     return super().form_valid(form)
+class Login(LoginView):
+    next_page = reverse_lazy("index")
+class SignUp(CreateView):
+    form_class = UserCreationForm
+    template_name = 'registration/signup.html'
+    success_url = reverse_lazy("login")
+class Logout(LogoutView):
+    template_name = 'registration/logout.html'
+class ProfileUpdate(UserPassesTestMixin,UpdateView):
+    model = Profile
+    success_url = reverse_lazy("index")
+    template_name ="HomeBakery/profile_actualizar.html"
+    fields = ['nombre','apellido','email','telefono','direccion','fecha_nacimiento','avatar']
+
+    def test_func(self):
+        return Profile.objects.filter(user=self.request.user).exists()
+class ProfileCreate(CreateView):
+    model = Profile
+    success_url = reverse_lazy("index")
+    template_name ="HomeBakery/profile_crear.html"
+    context_object_name = "profile"
+    fields =['nombre','apellido','email','telefono','direccion','fecha_nacimiento','avatar']
+
+    def form_valid(self,form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

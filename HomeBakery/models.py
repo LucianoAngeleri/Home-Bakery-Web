@@ -1,34 +1,48 @@
 from django.db import models
-
-class Cliente(models.Model):
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    email = models.EmailField(max_length=100)
-    telefono = models.CharField(max_length=20)
-    direccion = models.CharField(max_length=100)
-    fecha_nacimiento = models.DateField()
-
-    def __str__(self):
-        return f'Cliente ID:{self.id} - {self.nombre} {self.apellido}'
-
+from django.contrib.auth.models import User
 class Producto(models.Model):
+    propietario = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="propietario")
     nombre_producto = models.CharField(max_length=50)
-    precio_producto = models.DecimalField(max_digits=10, decimal_places=2)
+    descripcion_producto = models.TextField(default="", blank=True)
+    precio = models.FloatField()
+    imagen_producto = models.ImageField(upload_to="productos", blank=True, null=True)
+
+    @property
+    def imagen_producto_url(self):
+        return self.imagen_producto.url if self.imagen_producto else ""
 
     def __str__(self):
-        return f'Producto ID:{self.id} - {self.nombre_producto} - $ {self.precio_producto}'
-
-class Producto_Pedido(models.Model):
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    pedido = models.ForeignKey('Pedido', on_delete=models.CASCADE)
-    cantidad_producto = models.IntegerField()
-
-    def __str__(self):
-        return f'{self.producto} x {self.cantidad_producto} en {self.pedido}'
+        return f'{self.nombre_producto}'
 class Pedido(models.Model):
-    fecha_pedido = models.DateField()
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    productos= models.ManyToManyField(Producto,through=Producto_Pedido)
+    cliente = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="cliente")
+    fecha_pedido = models.DateField(auto_now_add=True)
+    hora_pedido = models.TimeField(auto_now_add=True)
+    producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, null=True)
+    cantidad_producto = models.IntegerField(default=0, null=True)
 
     def __str__(self):
-        return f'Pedido ID:{self.id} - {self.cliente} - Fecha:{self.fecha_pedido}'
+        return f'Pedido ID:{self.id} - {self.cliente} - {self.fecha_pedido}'
+# A implementar un carrito de productos
+# class ProductoPedido(models.Model):
+#     producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, null=True)
+#     pedido = models.ForeignKey(Pedido, on_delete=models.SET_NULL, null=True)
+#     cantidad_producto = models.IntegerField(default=0, null=True)
+
+#     def __str__(self):
+#         return f'ID:{self.id} - {self.producto} - {self.cantidad_producto}'
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    nombre = models.CharField(max_length=50, blank=True, null=True)
+    apellido = models.CharField(max_length=50, blank=True, null=True)
+    email = models.EmailField(max_length=100, blank=True, null=True)
+    telefono = models.CharField(max_length=20, blank=True, null=True)
+    direccion = models.CharField(max_length=100, blank=True, null=True)
+    fecha_nacimiento = models.DateField(blank=True, null=True)
+    avatar = models.ImageField(upload_to="avatares", blank=True, null=True)
+    @property
+    def imagen_avatar_url(self):
+        return self.avatar.url if self.avatar else ""
+
+    def __str__(self):
+        return f'ID:{self.id} - {self.user} {self.nombre} {self.apellido}'
