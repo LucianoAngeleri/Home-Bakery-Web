@@ -54,6 +54,9 @@
                       {% endif %}
                       <li><a class="dropdown-item" href="{% url 'producto_lista_mine' %}"><i class="fa-solid fa-bread-slice  px-2 py-1"></i>Mis Productos</a>
                       <li><a class="dropdown-item" href="{% url 'pedido_lista_mine' %}"><i class="fa-solid fa-cart-shopping px-2 py-1"></i>Mis Pedidos</a>
+                      {% if user.is_superuser %}
+                      <li><a class="dropdown-item" href="{% url 'mensaje_lista_mine' %}"><i class="fa-regular fa-message px-2 py-1"></i>Mis Mensajes</a>
+                      {% endif %}
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item text-danger" href="{% url 'logout' %}"><i class="fa-solid fa-xmark px-2 py-1"></i>Salir</a></li>
                     </ul>
@@ -87,7 +90,8 @@
             <hr class="d-md-none">
             <h5 class="display-6">Links</h5>
             <ul class="list-unstyled">
-              <li class="list-item"><a class="text-secondary" href="{% url 'about' %}">Acerca de Nosotros</a></li>
+              <li class="list-item"><a class="text-secondary fs-4" href="{% url 'about' %}">Acerca de Nosotros</a></li>
+              <li class="list-item"><a class="text-secondary fs-4" href="{% url 'mensaje_crear' %}">Contacto</a></li>
             </ul>
           </aside>
           <div class="vr d-none d-md-block p-0"></div>

@@ -53,3 +53,8 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'ID:{self.id} - {self.user} {self.nombre} {self.apellido}'
+class Mensaje(models.Model):
+    mensaje = models.TextField(max_length=1000)
+    email =models.EmailField()
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    destinatario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mensajes")

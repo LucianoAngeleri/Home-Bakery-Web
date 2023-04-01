@@ -5,4 +5,5 @@ from HomeBakery.models import *
 admin.site.register(Producto)
 admin.site.register(Pedido)
 admin.site.register(Profile)
+admin.site.register(Mensaje)
 # admin.site.register(ProductoPedido)

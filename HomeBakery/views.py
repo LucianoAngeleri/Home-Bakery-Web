@@ -1,9 +1,10 @@
-from HomeBakery.models import Producto, Pedido, Profile
+from HomeBakery.models import Producto, Pedido, Profile, Mensaje
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 
 class PermisosProductoSoloPropietario(UserPassesTestMixin):
     def test_func(self):
@@ -122,3 +123,25 @@ class ProfileCreate(CreateView):
     def form_valid(self,form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+class MensajeCreate(CreateView):
+    model = Mensaje
+    success_url = reverse_lazy("mensaje_crear")
+    template_name ="HomeBakery/mensaje_crear.html"
+    fields = ['mensaje', 'email']
+
+    def form_valid(self, form):
+        form.instance.destinatario = User.objects.get(username='admin')
+        return super().form_valid(form)
+class MensajeDelete(LoginRequiredMixin, UserPassesTestMixin,DeleteView):
+    model = Mensaje
+    success_url = reverse_lazy("mensaje_lista_mine")
+    
+    def test_func(self):
+        return Mensaje.objects.filter(destinatario=self.request.user).exists()
+class MensajeMineList(LoginRequiredMixin ,ListView):
+    model = Mensaje
+    template_name = "HomeBakery/mensaje_lista.html"
+    context_object_name = "mensajes"
+
+    def get_queryset(self):
+        return Mensaje.objects.filter(destinatario=self.request.user)
