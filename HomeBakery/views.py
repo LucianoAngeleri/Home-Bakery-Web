@@ -1,7 +1,6 @@
-from django.shortcuts import render
-from HomeBakery.models import Producto, Pedido, ProductoPedido
+from HomeBakery.models import Producto, Pedido, Profile
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -16,10 +15,13 @@ class PermisosPedidoSoloCliente(UserPassesTestMixin):
         user_id = self.request.user.id
         pedido_id = self.kwargs.get("pk")
         return Pedido.objects.filter(cliente=user_id, id=pedido_id).exists()
-def index(request):
-    return render(request, "HomeBakery/index.html")
-def producto(request):
-    return render(request, "HomeBakery/producto.html")
+class IndexView(TemplateView):
+    template_name = "HomeBakery/index.html"
+class AboutView(TemplateView):
+    template_name = "HomeBakery/about.html"
+
+class ProductoView(TemplateView):
+    template_name = "HomeBakery/producto.html"
 class ProductoList(ListView):
     model = Producto
     template_name ="HomeBakery/producto_lista.html"
@@ -36,19 +38,24 @@ class ProductoDetail(DetailView):
     context_object_name = "producto"
 class ProductoUpdate(LoginRequiredMixin,PermisosProductoSoloPropietario,UpdateView):
     model = Producto
-    success_url = reverse_lazy("producto_lista")
+    success_url = reverse_lazy("producto_lista_mine")
     template_name ="HomeBakery/producto_actualizar.html"
     fields = '__all__'
 class ProductoDelete(LoginRequiredMixin,PermisosProductoSoloPropietario,DeleteView):
     model = Producto
-    success_url = reverse_lazy("producto_lista")
+    success_url = reverse_lazy("producto_lista_mine")
     context_object_name = "producto"
 class ProductoCreate(LoginRequiredMixin,CreateView):
     model = Producto
-    success_url = reverse_lazy("producto_lista")
+    success_url = reverse_lazy("producto_lista_mine")
     template_name ="HomeBakery/producto_crear.html"
     context_object_name = "producto"
     fields = '__all__'
+    #['nombre_producto','descripcion_producto','precio','imagen_producto']
+
+    # def form_valid(self,form):
+    #      form.instance.user = self.request.user
+    #      return super().form_valid(form)
 class ProductoSearch(ListView):
     model = Producto
     template_name ="HomeBakery/producto_buscar.html"
@@ -73,24 +80,46 @@ class PedidoDetail(DetailView):
     context_object_name = "pedido"
 class PedidoUpdate(LoginRequiredMixin,PermisosPedidoSoloCliente,UpdateView):
     model = Pedido
-    success_url = reverse_lazy("pedido_lista")
+    success_url = reverse_lazy("pedido_lista_mine")
     template_name ="HomeBakery/pedido_actualizar.html"
     fields = '__all__'
 class PedidoDelete(LoginRequiredMixin,PermisosPedidoSoloCliente,DeleteView):
     model = Pedido
-    success_url = reverse_lazy("pedido_lista")
+    success_url = reverse_lazy("pedido_lista_mine")
     context_object_name = "pedido"
 class PedidoCreate(LoginRequiredMixin,CreateView):
     model = Pedido
-    success_url = reverse_lazy("pedido_lista")
+    success_url = reverse_lazy("pedido_lista_mine")
     template_name ="HomeBakery/pedido_crear.html"
     context_object_name = "pedido"
     fields = '__all__'  
+    
+    # def form_valid(self,form):
+    #     form.instance.user = self.request.user
+    #     return super().form_valid(form)
 class Login(LoginView):
     next_page = reverse_lazy("index")
 class SignUp(CreateView):
     form_class = UserCreationForm
     template_name = 'registration/signup.html'
-    success_url = reverse_lazy("index")
+    success_url = reverse_lazy("login")
 class Logout(LogoutView):
     template_name = 'registration/logout.html'
+class ProfileUpdate(UserPassesTestMixin,UpdateView):
+    model = Profile
+    success_url = reverse_lazy("index")
+    template_name ="HomeBakery/profile_actualizar.html"
+    fields = ['nombre','apellido','email','telefono','direccion','fecha_nacimiento','avatar']
+
+    def test_func(self):
+        return Profile.objects.filter(user=self.request.user).exists()
+class ProfileCreate(CreateView):
+    model = Profile
+    success_url = reverse_lazy("index")
+    template_name ="HomeBakery/profile_crear.html"
+    context_object_name = "profile"
+    fields = ['nombre','apellido','email','telefono','direccion','fecha_nacimiento','avatar']
+
+    def form_valid(self,form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

@@ -3,8 +3,8 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('producto/', views.producto, name='producto'),
+    path('', views.IndexView.as_view(), name='index'),
+    path('producto/', views.ProductoView.as_view(), name='producto'),
     path('producto/lista', views.ProductoList.as_view() , name='producto_lista'),
     path('producto/<pk>/detalle', views.ProductoDetail.as_view() , name='producto_detalle'),
     path('producto/<pk>/actualizar', views.ProductoUpdate.as_view() , name='producto_actualizar'),
@@ -21,5 +21,8 @@ urlpatterns = [
     path('logout/', views.Logout.as_view() , name='logout'),
     path('producto/lista/mine', views.ProductoMineList.as_view() , name='producto_lista_mine'),
     path('pedido/lista/mine', views.PedidoMineList.as_view() , name='pedido_lista_mine'),
+    path('profile/crear', views.ProfileCreate.as_view() , name='profile_crear'),
+    path('profile/<pk>/actualizar', views.ProfileUpdate.as_view() , name='profile_actualizar'),
+    path('about/', views.AboutView.as_view() , name='about'),
 ]
 

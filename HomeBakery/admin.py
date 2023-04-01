@@ -4,4 +4,5 @@ from HomeBakery.models import *
 
 admin.site.register(Producto)
 admin.site.register(Pedido)
-admin.site.register(ProductoPedido)
+admin.site.register(Profile)
+# admin.site.register(ProductoPedido)

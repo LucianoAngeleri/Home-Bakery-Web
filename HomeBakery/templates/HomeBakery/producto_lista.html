@@ -22,7 +22,7 @@
             <ul class="list-unstyled d-flex justify-content-between g-3">
               <li class="list-item"><a class="btn btn-outline-primary btn-sm" href="{% url 'producto_detalle' producto.id %}">Detalle</a>
               </li>
-              {% if user.is_authenticated and user.id == producto.publisher.id %}
+              {% if user.is_authenticated and user.id == producto.propietario.id %}
               <li class="list-item"><a class="btn btn-outline-warning btn-sm" href="{% url 'producto_actualizar' producto.id %}">Actualizar</a></li>
               <li class="list-item"><a class="btn btn-outline-danger btn-sm" href="{% url 'producto_borrar' producto.id %}">Eliminar</a></li>
               {% endif %}

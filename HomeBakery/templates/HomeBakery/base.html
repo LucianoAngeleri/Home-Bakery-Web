@@ -47,7 +47,11 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-md-start  text-small">
                       <li class="text-center m-3 fw-bold lead">Hola, {{ user.username }}</li>
-                      <li><a class="dropdown-item" href="#"><i class="fa-regular fa-address-card px-2 py-1"></i>Mi Perfil</a></li>
+                      {% if user.profile %}
+                        <li><a class="dropdown-item" href="{% url 'profile_actualizar' user.profile.id %}"><i class="fa-regular fa-address-card px-2 py-1"></i>Actualizar Perfil</a></li>
+                      {% else %}
+                        <li><a class="dropdown-item" href="{% url 'profile_crear' user.profile.id %}"><i class="fa-regular fa-address-card px-2 py-1"></i>Crear Perfil</a></li>
+                      {% endif %}
                       <li><a class="dropdown-item" href="{% url 'producto_lista_mine' %}"><i class="fa-solid fa-bread-slice  px-2 py-1"></i>Mis Productos</a>
                       <li><a class="dropdown-item" href="{% url 'pedido_lista_mine' %}"><i class="fa-solid fa-cart-shopping px-2 py-1"></i>Mis Pedidos</a>
                       <li><hr class="dropdown-divider"></li>
@@ -83,8 +87,7 @@
             <hr class="d-md-none">
             <h5 class="display-6">Links</h5>
             <ul class="list-unstyled">
-              <li class="list-item"><a class="text-secondary" href="#">Acerca de Nosotros</a></li>
-              <li class="list-item"><a class="text-secondary" href="#">Contacto</a></li>
+              <li class="list-item"><a class="text-secondary" href="{% url 'about' %}">Acerca de Nosotros</a></li>
             </ul>
           </aside>
           <div class="vr d-none d-md-block p-0"></div>
