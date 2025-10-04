@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'default-key-para-local')
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '127.0.0.1', 'nombre-de-su-app.onrender.com',
+    '127.0.0.1', 'home-bakery-web.onrender.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
