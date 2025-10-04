@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-b@@s0()@i*z=sq6@$e6p@7wamzw3ht)th8ocj!xu%5)tp!zu0+'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'default-key-para-local')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1', 'nombre-de-su-app.onrender.com',
+]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.app.github.dev', 
@@ -84,11 +88,17 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+DB_FROM_ENV = dj_database_url.config(conn_max_age=600)
+
+if DB_FROM_ENV:
+    DATABASES['default'] = DB_FROM_ENV
 
 
 # Password validation
@@ -127,6 +137,9 @@ USE_TZ = True
 
 STATIC_ROOT = str(Path(BASE_DIR) / 'static')
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [ 
+    os.path.join(BASE_DIR, 'HomeBakery/static'),
+    ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
